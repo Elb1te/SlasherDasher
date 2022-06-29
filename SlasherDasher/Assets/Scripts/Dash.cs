@@ -10,15 +10,12 @@ public class Dash : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            while (Input.GetMouseButtonDown(0))
-            {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
                 mousePos.Normalize();
 
                 float rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
                 transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-            }
 
         }
 

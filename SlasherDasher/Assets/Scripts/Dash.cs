@@ -7,14 +7,13 @@ public class Dash : MonoBehaviour
     public GameObject DashArrow;
     public bool canDash = true;
     public bool isDashing = false;
-    public int dashSpeed = 10;
-    public Rigidbody myRB2D;
-    public Transform DashDirection;
+    public float dashSpeed = 10;
+    public Rigidbody2D myRB2D;
     public float rotationZ;
 
     private void Start()
     {
-        rb2D = GetComponent<Rigidbody>();
+        myRB2D = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -25,24 +24,25 @@ public class Dash : MonoBehaviour
         rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
         DashArrow.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        DashDirection.rotation = Quaternion.Euler(0f, 0f, rotationZ);
 
         if (Input.GetMouseButtonDown(0))
         {
-            if(canDash)
-            {
-                DoDash();
-                canDash = false;
-            }
+            DoDash();
         }
 
     }
 
     private void DoDash()
     {
-        transform.rotation = DashDirection.rotation;
+        Debug.Log("Dashed!");
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        mousePos.Normalize();
 
-        rb2D.velocity = DashDirection.right * dashSpeed;
-        
+        rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+
+        myRB2D.velocity = transform.right * dashSpeed;
+
     }
 }

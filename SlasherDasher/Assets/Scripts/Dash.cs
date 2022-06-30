@@ -7,7 +7,7 @@ public class Dash : MonoBehaviour
     public GameObject DashArrow;
     public int DashCount = 1;
     public bool isDashing = false;
-    public Rigidbody myRB;
+    public int dashSpeed = 1;
 
     private void Update()
     {
@@ -38,6 +38,5 @@ public class Dash : MonoBehaviour
         float rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        myRB.AddForce();
     }
 }

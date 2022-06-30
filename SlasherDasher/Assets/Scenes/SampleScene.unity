@@ -3534,7 +3534,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480468084}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.67, y: -0.004, z: 0}
+  m_LocalPosition: {x: 1.393, y: -0.004, z: 0}
   m_LocalScale: {x: 0.6535972, y: 0.04427785, z: 1}
   m_Children: []
   m_Father: {fileID: 420550563}
@@ -3752,3 +3752,5 @@ MonoBehaviour:
   DashArrow: {fileID: 420550562}
   DashCount: 1
   isDashing: 0
+  dashSpeed: 1
+  rb2D: {fileID: 1672408042}

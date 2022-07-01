@@ -27,17 +27,25 @@ public class Dash : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Clicked");
             transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
             DoDash();
-            Debug.Log("Clicked");
+            Debug.Log("CLICKED2");
         }
-
+    }
+    
+    IEnumerator timeWait()
+    {
+        Debug.Log("Waited");
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("WAITED2");
     }
 
     private void DoDash()
     {
         StartCoroutine(timeWait());
-        for (int i = 0; i < 100; i++)
+        Debug.Log("MADE DASH2");
+        for (int i = 0; i < 10; i++)
         {
             myRB2D.velocity = transform.right * dashSpeed;
             Debug.Log("Made Dash");
@@ -45,9 +53,4 @@ public class Dash : MonoBehaviour
 
     }
 
-    IEnumerator timeWait()
-    {
-        yield return new WaitForSeconds(0.1f);
-        Debug.Log("Waited");
-    }
 }

@@ -5,52 +5,65 @@ using UnityEngine;
 public class Dash : MonoBehaviour
 {
     public GameObject DashArrow;
-    public bool canDash = true;
-    public bool isDashing = false;
-    public float dashSpeed = 10;
+    public bool canDash;
+    public bool isDashing;
+    public float dashSpeed = 10f;
     public Rigidbody2D myRB2D;
     public float rotationZ;
+    public bool makeDash;
 
     private void Start()
     {
+        DashArrow.SetActive(false);
         myRB2D = GetComponent<Rigidbody2D>();
+        isDashing = false;
+        canDash = true;
+        makeDash = false;
     }
 
     private void FixedUpdate()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        mousePos.Normalize();
-
-        rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-
-        DashArrow.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Clicked");
-            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-            DoDash();
-            Debug.Log("CLICKED2");
+            makeDash = true;
+            if (makeDash)
+            {
+                DashArrow.SetActive(true);
+
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                mousePos.Normalize();
+
+                rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+
+                DashArrow.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+            }
+           else if (Input.GetMouseButtonUp(0))
+            {
+                DashArrow.SetActive(false);
+
+                DoDash();
+            }
         }
+ 
     }
     
     IEnumerator timeWait()
     {
-        Debug.Log("Waited");
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("WAITED2");
     }
 
     private void DoDash()
     {
-        StartCoroutine(timeWait());
-        Debug.Log("MADE DASH2");
-        for (int i = 0; i < 10; i++)
+        isDashing = true;
+        
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+        for (int i = 0; i < 1000; i++)
         {
             myRB2D.velocity = transform.right * dashSpeed;
-            Debug.Log("Made Dash");
+
+            StartCoroutine(timeWait());
         }
-
+        canDash = false;
     }
-
 }

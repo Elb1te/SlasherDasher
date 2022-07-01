@@ -27,22 +27,27 @@ public class Dash : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
             DoDash();
+            Debug.Log("Clicked");
         }
 
     }
 
     private void DoDash()
     {
-        Debug.Log("Dashed!");
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        mousePos.Normalize();
+        StartCoroutine(timeWait());
+        for (int i = 0; i < 100; i++)
+        {
+            myRB2D.velocity = transform.right * dashSpeed;
+            Debug.Log("Made Dash");
+        }
 
-        rotationZ = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+    }
 
-        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-
-        myRB2D.velocity = transform.right * dashSpeed;
-
+    IEnumerator timeWait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("Waited");
     }
 }

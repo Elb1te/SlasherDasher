@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
-    public Rigidbody2D rb2d;
     private Vector2 moveInput;
-
+    public Rigidbody2D rb2d;
     private float activeMoveSpeed;
     public float dashSpeed;
     public bool canDash;
-    public Animator animator;
+    public Dash script;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
         activeMoveSpeed = movementSpeed;
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void Awake() 
@@ -26,13 +26,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 
         moveInput.Normalize();
-        rb2d.velocity = moveInput * activeMoveSpeed;
+
+        if (script.IsDashing == false)
+        {
+            rb2d.velocity = moveInput * activeMoveSpeed;
+
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -45,3 +51,4 @@ public class PlayerMovement : MonoBehaviour
 
     }
 }
+

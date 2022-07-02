@@ -43,7 +43,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        animator.SetFloat("Horizontal", moveInput.x);
-        animator.SetFloat("Vertical", moveInput.y);
     }
 }

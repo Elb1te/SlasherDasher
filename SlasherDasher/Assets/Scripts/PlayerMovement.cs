@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         moveInput.Normalize();
 
-        if (script.IsDashing == false)
+        if (script.isDashing == false)
         {
             rb2d.velocity = moveInput * activeMoveSpeed;
 

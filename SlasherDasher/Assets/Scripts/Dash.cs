@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dash : MonoBehaviour
 {
     public GameObject DashArrow;
-    public bool IsDashing;
+    public bool isDashing;
     public bool canDash;
     public float dashPower;
     public float rotationZ;
@@ -14,7 +14,7 @@ public class Dash : MonoBehaviour
     public void Start()
     {
         canDash = true;
-        IsDashing = false;
+        isDashing = false;
         dashPower = 15f;
         myRB = GetComponent<Rigidbody2D>();
     }
@@ -36,6 +36,7 @@ public class Dash : MonoBehaviour
             {
                 Debug.Log("GO");
                 DoDash();
+                canDash = false;
             }
         }
 
@@ -43,13 +44,14 @@ public class Dash : MonoBehaviour
     IEnumerator timeWait()
     {
         yield return new WaitForSeconds(1);
-        IsDashing = false;
+        isDashing = false;
+        canDash = true;
     }
 
     private void DoDash()
     {
         transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        IsDashing = true;
+        isDashing = true;
         myRB.velocity = transform.right * dashPower;
         StartCoroutine(timeWait());
     }
